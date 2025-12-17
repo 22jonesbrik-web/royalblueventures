@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honeymoon/Anniversary Finder | Royal Blue Ventures</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="quiz-style.css">
+</head>
+<body>
+
+    <div id="nav-header">
+        <nav>
+            <a href="royalblueventures.html">Back to Main Hub</a>
+        </nav>
+    </div>
+
+    <header class="hero-quiz">
+        <h1>The Royal Retreat Finder</h1>
+        <p>Answer 10 questions to discover your perfect honeymoon or anniversary destination.</p>
+    </header>
+
+    <div id="quiz-container" class="glass-panel">
+        <div id="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+        <p id="question-count">Question 1 of 10</p>
+        
+        <h2 id="question-text">Loading Question...</h2>
+        
+        <div id="answer-buttons" class="btn-grid">
+        </div>
+    </div>
+
+    <div id="result-container" class="glass-panel hidden">
+        <h2>Your Ideal Royal Gateway Is...</h2>
+        <h1 id="winner-name">Destination Name</h1>
+        
+        <div class="winner-showcase">
+            <img id="winner-img" src="" alt="Destination">
+            <p id="winner-desc">Description goes here.</p>
+        </div>
+
+        <h3>Ready to plan this trip?</h3>
+        <a href="markettrends.html" class="cta-link">Get a Price Estimate on the Market Engine →</a>
+        <br><br>
+        <button onclick="location.reload()" class="cta-btn">Start Over</button>
+    </div>
+
+    <script>
+        // Quiz questions with answer choices
+        const quizQuestions = [
+            {
+                question: "What's your ideal climate?",
+                answers: [
+                    { text: "Tropical & Warm", points: { maldives: 3, bali: 2, hawaii: 3, caribbean: 2, greece: 0 } },
+                    { text: "Temperate & Mild", points: { italy: 3, greece: 2, france: 2, japan: 1, peru: 1 } },
+                    { text: "Cool & Snowy", points: { switzerland: 3, iceland: 2, canada: 1, norway: 2 } },
+                    { text: "Desert & Dry", points: { dubai: 2, morocco: 2, egypt: 1, peru: 2 } }
+                ]
+            },
+            {
+                question: "How do you prefer to spend your days?",
+                answers: [
+                    { text: "Beach & Water Activities", points: { maldives: 3, hawaii: 3, bali: 2, caribbean: 3 } },
+                    { text: "Cultural Exploration", points: { italy: 3, japan: 3, greece: 2, peru: 2, morocco: 2 } },
+                    { text: "Adventure & Hiking", points: { switzerland: 3, iceland: 2, peru: 3, canada: 2, nepal: 3 } },
+                    { text: "Luxury & Relaxation", points: { dubai: 3, france: 2, maldives: 1, bali: 1 } }
+                ]
+            },
+            {
+                question: "What's your approximate budget per night?",
+                answers: [
+                    { text: "$50-150", points: { peru: 3, morocco: 2, bali: 2, caribbean: 1 } },
+                    { text: "$150-400", points: { greece: 2, italy: 2, japan: 2, caribbean: 2, costa_rica: 2 } },
+                    { text: "$400-800", points: { france: 2, switzerland: 2, hawaii: 2, dubai: 1 } },
+                    { text: "$800+", points: { maldives: 3, dubai: 3, bali: 1, switzerland: 1 } }
+                ]
+            },
+            {
+                question: "How important is wildlife & nature?",
+                answers: [
+                    { text: "Very Important", points: { costa_rica: 3, peru: 3, nepal: 2, iceland: 2, canada: 2 } },
+                    { text: "Somewhat Important", points: { bali: 2, hawaii: 2, caribbean: 2, japan: 1, morocco: 1 } },
+                    { text: "Not Very Important", points: { france: 2, italy: 2, dubai: 2, greece: 1 } },
+                    { text: "I prefer cities", points: { dubai: 3, tokyo: 3, france: 1, italy: 1 } }
+                ]
+            },
+            {
+                question: "What's your preferred travel season?",
+                answers: [
+                    { text: "Summer (June-August)", points: { greece: 2, france: 2, iceland: 3, switzerland: 3, hawaii: 2 } },
+                    { text: "Winter (Dec-Feb)", points: { maldives: 2, caribbean: 2, bali: 2, dubai: 3, egypt: 2 } },
+                    { text: "Spring (Mar-May)", points: { japan: 3, peru: 2, italy: 2, morocco: 2 } },
+                    { text: "Fall (Sept-Nov)", points: { nepal: 2, costa_rica: 2, greece: 1, caribbean: 1 } }
+                ]
+            },
+            {
+                question: "How do you feel about long flights?",
+                answers: [
+                    { text: "I prefer nearby destinations (0-6 hrs)", points: { caribbean: 2, mexico: 3, costa_rica: 2, hawaii: 1 } },
+                    { text: "Medium distance is fine (6-12 hrs)", points: { bali: 2, dubai: 2, japan: 2, peru: 2 } },
+                    { text: "Long flights don't bother me (12+ hrs)", points: { maldives: 2, fiji: 2, australia: 2 } },
+                    { text: "Local trips only", points: { greece: 3, italy: 3, france: 2, switzerland: 1 } }
+                ]
+            },
+            {
+                question: "What's your dining style preference?",
+                answers: [
+                    { text: "Fine Dining & Gourmet", points: { france: 3, italy: 2, dubai: 2, japan: 1 } },
+                    { text: "Street Food & Local Cuisine", points: { morocco: 3, peru: 3, japan: 2, thailand: 2 } },
+                    { text: "Farm-to-Table & Organic", points: { costa_rica: 2, switzerland: 2, greece: 2 } },
+                    { text: "All-Inclusive Resorts", points: { maldives: 2, caribbean: 3, bali: 1 } }
+                ]
+            },
+            {
+                question: "How do you prefer to explore?",
+                answers: [
+                    { text: "Guided Tours & Structure", points: { egypt: 3, japan: 2, peru: 2, italy: 1 } },
+                    { text: "Independent & Self-Guided", points: { iceland: 3, greece: 2, morocco: 2, switzerland: 1 } },
+                    { text: "Private Experiences", points: { maldives: 2, dubai: 3, france: 1, bali: 1 } },
+                    { text: "Group Adventures", points: { nepal: 2, costa_rica: 2, canada: 2 } }
+                ]
+            },
+            {
+                question: "What's your vacation vibe?",
+                answers: [
+                    { text: "Romantic & Intimate", points: { maldives: 3, bali: 3, france: 2, greece: 2, italy: 1 } },
+                    { text: "Exciting & Vibrant", points: { dubai: 2, tokyo: 3, caribbean: 2, ibiza: 3 } },
+                    { text: "Peaceful & Serene", points: { iceland: 3, switzerland: 2, nepal: 3, bali: 1 } },
+                    { text: "Cultural & Educational", points: { peru: 2, egypt: 2, japan: 2, italy: 3 } }
+                ]
+            },
+            {
+                question: "What's the most important factor?",
+                answers: [
+                    { text: "Beaches & Scenery", points: { maldives: 3, hawaii: 3, caribbean: 2, bali: 2 } },
+                    { text: "History & Culture", points: { italy: 3, egypt: 3, greece: 2, peru: 2, japan: 1 } },
+                    { text: "Luxury & Comfort", points: { dubai: 3, france: 2, maldives: 1, switzerland: 1 } },
+                    { text: "Adventure & Activities", points: { peru: 3, iceland: 2, costa_rica: 3, nepal: 2, canada: 1 } }
+                ]
+            }
+        ];
+
+        // Destination data
+        const destinations = {
+            maldives: {
+                name: "Maldives",
+                description: "Crystal-clear waters, luxury overwater bungalows, and pristine coral reefs make this the ultimate tropical romance destination.",
+                image: "https://images.unsplash.com/photo-1583522868906-2dd4a3f7f9e3?w=400&h=300&fit=crop"
+            },
+            bali: {
+                name: "Bali, Indonesia",
+                description: "Exotic temples, stunning beaches, rice terraces, and affordable luxury create the perfect blend of adventure and romance.",
+                image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&h=300&fit=crop"
+            },
+            hawaii: {
+                name: "Hawaii",
+                description: "Volcanic landscapes, pristine beaches, outdoor adventures, and aloha spirit create unforgettable memories.",
+                image: "https://images.unsplash.com/photo-1542259009477-d625272157b7?w=400&h=300&fit=crop"
+            },
+            caribbean: {
+                name: "Caribbean Islands",
+                description: "Turquoise waters, white-sand beaches, and vibrant culture offer an idyllic tropical escape.",
+                image: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=400&h=300&fit=crop"
+            },
+            france: {
+                name: "France",
+                description: "Romantic Paris, lavender fields of Provence, and world-class wine create timeless elegance.",
+                image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&h=300&fit=crop"
+            },
+            italy: {
+                name: "Italy",
+                description: "Venice canals, Tuscan countryside, ancient Rome, and exquisite cuisine spell pure romance.",
+                image: "https://images.unsplash.com/photo-1537225228614-b4fad34a0b60?w=400&h=300&fit=crop"
+            },
+            greece: {
+                name: "Greece",
+                description: "Whitewashed villages, turquoise Aegean seas, ancient ruins, and sunset views create postcard-perfect moments.",
+                image: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=400&h=300&fit=crop"
+            },
+            dubai: {
+                name: "Dubai",
+                description: "Ultra-luxury resorts, desert safaris, modern architecture, and 5-star experiences define Arabian opulence.",
+                image: "https://images.unsplash.com/photo-1512453475900-330447e534fa?w=400&h=300&fit=crop"
+            },
+            switzerland: {
+                name: "Switzerland",
+                description: "Alpine mountains, chocolate capital, pristine lakes, and cozy chalets offer mountain romance.",
+                image: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&h=300&fit=crop"
+            },
+            iceland: {
+                name: "Iceland",
+                description: "Northern lights, dramatic waterfalls, ice caves, and otherworldly landscapes for adventurous couples.",
+                image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=300&fit=crop"
+            },
+            peru: {
+                name: "Peru",
+                description: "Machu Picchu, Amazon rainforest, ancient culture, and diverse landscapes for the adventurous spirit.",
+                image: "https://images.unsplash.com/photo-1578762394271-fe00a0fa07dd?w=400&h=300&fit=crop"
+            },
+            japan: {
+                name: "Japan",
+                description: "Cherry blossoms, ancient temples, neon cities, and culinary excellence blend tradition with modernity.",
+                image: "https://images.unsplash.com/photo-1522383150696-c6db8542c800?w=400&h=300&fit=crop"
+            },
+            costa_rica: {
+                name: "Costa Rica",
+                description: "Cloud forests, wildlife, volcanoes, and eco-luxury resorts create an outdoor paradise.",
+                image: "https://images.unsplash.com/photo-1518776857216-90a674b32f0e?w=400&h=300&fit=crop"
+            },
+            egypt: {
+                name: "Egypt",
+                description: "Pyramids, ancient temples, Nile River cruises, and timeless history make it unforgettable.",
+                image: "https://images.unsplash.com/photo-1518684077810-718a17ebc5e8?w=400&h=300&fit=crop"
+            },
+            nepal: {
+                name: "Nepal",
+                description: "Himalayas, spiritual temples, adventure trekking, and warm culture create unique memories.",
+                image: "https://images.unsplash.com/photo-1544735378-fda7995e3ce5?w=400&h=300&fit=crop"
+            }
+        };
+
+        // Quiz state
+        let currentQuestion = 0;
+        let scores = {};
+        
+        // Initialize scores
+        for (let dest in destinations) {
+            scores[dest] = 0;
+        }
+
+        // Load the first question on page load
+        window.addEventListener('DOMContentLoaded', loadQuestion);
+
+        function loadQuestion() {
+            const question = quizQuestions[currentQuestion];
+            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('question-count').textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
+            
+            // Update progress bar
+            const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+
+            // Clear previous buttons
+            const buttonContainer = document.getElementById('answer-buttons');
+            buttonContainer.innerHTML = '';
+
+            // Add answer buttons
+            question.answers.forEach((answer, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-btn';
+                btn.textContent = answer.text;
+                btn.onclick = () => answerQuestion(answer);
+                buttonContainer.appendChild(btn);
+            });
+        }
+
+        function answerQuestion(answer) {
+            // Add points to destinations
+            for (let dest in answer.points) {
+                scores[dest] += answer.points[dest];
+            }
+
+            currentQuestion++;
+            
+            if (currentQuestion < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            // Find the destination with the highest score
+            let maxScore = 0;
+            let winnerDest = '';
+            
+            for (let dest in scores) {
+                if (scores[dest] > maxScore) {
+                    maxScore = scores[dest];
+                    winnerDest = dest;
+                }
+            }
+
+            const winner = destinations[winnerDest];
+            
+            // Hide quiz, show results
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-container').classList.remove('hidden');
+            
+            // Populate result
+            document.getElementById('winner-name').textContent = winner.name;
+            document.getElementById('winner-desc').textContent = winner.description;
+            document.getElementById('winner-img').src = winner.image;
+        }
+    </script>
+</body>
+</html>

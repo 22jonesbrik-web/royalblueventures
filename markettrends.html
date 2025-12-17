@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Trends | Royal Blue Ventures</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="trends-style.css">
+</head>
+<body>
+
+    <div id="nav-header">
+        <nav>
+            <a href="royalblueventures.html">Back to Main Hub</a>
+        </nav>
+    </div>
+
+    <header class="hero-trends">
+        <h1>Travel Market Insights</h1>
+        <p>Live Price Forecasting & Destination Analytics</p>
+    </header>
+
+    <div id="forecaster-container">
+        <div class="glass-card">
+            <h2>Price Estimator</h2>
+            <p class="instruction">Select your details to see total trip budget estimates.</p>
+            
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Preferred Destination</label>
+                    <select id="destination" onchange="updatePreview()">
+                        <option value="1500">Maldives</option>
+                        <option value="1200">Bali, Indonesia</option>
+                        <option value="1800">Hawaii</option>
+                        <option value="1400">Caribbean Islands</option>
+                        <option value="1600">Paris, France</option>
+                        <option value="1550">Italy</option>
+                        <option value="1300">Greece</option>
+                        <option value="1900">Dubai</option>
+                        <option value="1700">Switzerland</option>
+                        <option value="1400">Iceland</option>
+                        <option value="900">Peru</option>
+                        <option value="1500">Japan</option>
+                        <option value="1100">Costa Rica</option>
+                        <option value="1300">Egypt</option>
+                        <option value="950">Nepal</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Start Date</label>
+                    <input type="date" id="start-date" onchange="updatePreview()">
+                </div>
+
+                <div class="input-group">
+                    <label>End Date</label>
+                    <input type="date" id="end-date" onchange="updatePreview()">
+                </div>
+            </div>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Travelers</label>
+                    <input type="number" id="travelers" value="1" min="1" onchange="updatePreview()">
+                </div>
+                <div class="input-group">
+                    <label>Days of Travel</label>
+                    <input type="number" id="duration" value="0" min="0" disabled style="background: rgba(255,255,255,0.05);">
+                </div>
+                <div class="input-group">
+                    <label>Booking Window (Days Ahead)</label>
+                    <input type="number" id="advance-days" value="30" min="0" onchange="updatePreview()">
+                </div>
+            </div>
+
+            <div class="points-section">
+                <button type="button" id="points-btn" class="points-toggle" onclick="togglePoints()">
+                    ✈️ Use Points for Flights
+                </button>
+                <p id="points-status" class="points-status hidden">Flight savings applied!</p>
+            </div>
+
+            <button onclick="calculateTrend()" class="calc-btn">🔍 Analyze Market Trend</button>
+
+            <div id="preview-display" class="hidden info-box">
+                <p id="preview-text"></p>
+            </div>
+
+            <div id="result-display" class="hidden">
+                <div class="price-breakdown">
+                    <div class="price-row">
+                        <span>Base Budget (for trip):</span>
+                        <span id="base-cost">$0.00</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Season Adjustment:</span>
+                        <span id="season-adjust">+0%</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Booking Discount:</span>
+                        <span id="booking-discount">-0%</span>
+                    </div>
+                    <div class="price-row" id="flight-discount-row" style="display:none;">
+                        <span>✈️ Flight Points Discount:</span>
+                        <span id="flight-discount">-0%</span>
+                    </div>
+                    <div class="price-row total">
+                        <span class="label">Projected Total Cost:</span>
+                        <span id="price-output">$0.00</span>
+                    </div>
+                </div>
+                <p id="trend-insight" class="insight-text"></p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Royal Blue Ventures | Data provided by RBV Insights</p>
+        <a href="#" id="back-to-top">Back to Top ↑</a>
+    </footer>
+
+    <script>
+        // smooth scroll to top (always lands at true top)
+        document.getElementById('back-to-top').addEventListener('click', function(e){
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+    <script>
+        let usePointsForFlights = false;
+
+        function togglePoints() {
+            usePointsForFlights = !usePointsForFlights;
+            const btn = document.getElementById('points-btn');
+            const status = document.getElementById('points-status');
+            
+            if (usePointsForFlights) {
+                btn.classList.add('active');
+                status.classList.remove('hidden');
+            } else {
+                btn.classList.remove('active');
+                status.classList.add('hidden');
+            }
+        }
+
+        function getSeasonMultiplier(date) {
+            const month = date.getMonth();
+            if ([5, 6, 11].includes(month)) return { mult: 1.5, label: 'Peak Season (+50%)' }; // Jun, Jul, Dec
+            if ([0, 1, 8, 9].includes(month)) return { mult: 0.75, label: 'Off-Season (-25%)' }; // Jan, Feb, Sept, Oct
+            if ([2, 10].includes(month)) return { mult: 1.2, label: 'Shoulder Season (+20%)' }; // Mar, Nov
+            return { mult: 1.0, label: 'Steady Demand (±0%)' }; // Apr, May, Jul, Aug
+        }
+
+        function getDayOfWeekMultiplier(date) {
+            const dayOfWeek = date.getDay();
+            if ([5, 6].includes(dayOfWeek)) return 1.15; // Fri, Sat = 15% premium
+            if (dayOfWeek === 0) return 1.08; // Sun = 8% premium
+            return 1.0; // Mon-Thu = standard
+        }
+
+        function getAdvanceBookingDiscount(advanceDays) {
+            if (advanceDays >= 90) return 0.90; // 10% off
+            if (advanceDays >= 60) return 0.95; // 5% off
+            if (advanceDays >= 30) return 0.98; // 2% off
+            if (advanceDays >= 14) return 1.0;  // standard
+            if (advanceDays >= 7) return 1.05; // 5% premium
+            return 1.15; // 15% last-minute premium
+        }
+
+        function updatePreview() {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            if (!startDate || !endDate) {
+                document.getElementById('preview-display').classList.add('hidden');
+                return;
+            }
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const durationDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+            if (durationDays <= 0) return;
+            document.getElementById('duration').value = durationDays;
+            const travelers = parseInt(document.getElementById('travelers').value) || 1;
+            document.getElementById('preview-text').innerText = `Trip: ${durationDays} night(s), ${travelers} traveler(s) — click 'Analyze' for exact pricing.`;
+            document.getElementById('preview-display').classList.remove('hidden');
+        }
+
+        function calculateTrend() {
+            const baseBudget = parseFloat(document.getElementById('destination').value);
+            const startDate = new Date(document.getElementById('start-date').value);
+            const endDate = new Date(document.getElementById('end-date').value);
+            const travelers = parseInt(document.getElementById('travelers').value) || 1;
+            const advanceDays = parseInt(document.getElementById('advance-days').value) || 30;
+
+            if (!startDate || isNaN(startDate.getTime()) || !endDate || isNaN(endDate.getTime())) {
+                alert("Please select valid start and end dates!");
+                return;
+            }
+
+            const durationDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            if (durationDays <= 0) {
+                alert("End date must be after start date!");
+                return;
+            }
+
+            // Calculate multipliers from multiple factors
+            const seasonData = getSeasonMultiplier(startDate);
+            const dayOfWeekMult = getDayOfWeekMultiplier(startDate);
+            const bookingDiscount = getAdvanceBookingDiscount(advanceDays);
+
+            const adjustedBudget = baseBudget * seasonData.mult * dayOfWeekMult;
+            const subtotal = adjustedBudget * durationDays;
+            const discountedSubtotal = subtotal * bookingDiscount;
+            
+            // Apply flight points discount if selected
+            let flightDiscount = 1.0;
+            if (usePointsForFlights) {
+                flightDiscount = 0.78; // 22% off for using points
+            }
+            
+            const totalBeforeTravelers = discountedSubtotal * flightDiscount;
+            const totalCost = totalBeforeTravelers * travelers;
+
+            // Display breakdown
+            document.getElementById('base-cost').innerText = '$' + baseBudget.toFixed(2);
+            document.getElementById('season-adjust').innerText = (seasonData.mult > 1 ? '+' : '') + ((seasonData.mult - 1) * 100).toFixed(0) + '%';
+            const discountPct = (1 - bookingDiscount) * 100;
+            document.getElementById('booking-discount').innerText = (bookingDiscount < 1 ? '-' : '+') + discountPct.toFixed(0) + '%';
+            
+            // Show flight discount row if active
+            const flightDiscountRow = document.getElementById('flight-discount-row');
+            const flightDiscountSpan = document.getElementById('flight-discount');
+            if (usePointsForFlights) {
+                flightDiscountRow.style.display = 'flex';
+                flightDiscountSpan.innerText = '-22%';
+            } else {
+                flightDiscountRow.style.display = 'none';
+            }
+            
+            document.getElementById('price-output').innerText = '$' + totalCost.toLocaleString('en-US', { maximumFractionDigits: 2 });
+
+            let insight = `${durationDays} night(s) × ${travelers} traveler(s) | ${seasonData.label}`;
+            if (usePointsForFlights) insight += ' | 🎁 Flight points applied!';
+            if (advanceDays >= 90) insight += ' | ✨ Early booking! Great savings!';
+            else if (advanceDays < 7) insight += ' | ⚡ Last-minute premium applied.';
+            document.getElementById('trend-insight').innerText = insight;
+
+            document.getElementById('result-display').classList.remove('hidden');
+        }
+
+        // Allow Enter key to calculate
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateTrend();
+        });
+    </script>
+</body>
+</html>
