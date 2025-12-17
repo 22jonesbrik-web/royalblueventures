@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Blue Ventures | The Ultimate Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="RBV.css">
+</head>
+<body>
+
+    <div id="main-nav-container">
+        <nav class="glass-nav">
+            <div class="logo">RBV</div>
+            <div class="nav-links">
+                <a href="game.html">Globe-Trotter</a>
+                <a href="honeymoonfinder.html">Honeymoon/Anniversary Finder</a>
+                <a href="markettrends.html">Price Estimator</a>
+                <a href="aboutme.html">About Me</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="hero-header">
+        <div class="hero-content">
+            <h1>Royal Blue Ventures</h1>
+            <p class="subtitle">Elevating Every Journey. Redefining Every Venture.</p>
+            <a href="#main-gateway" class="cta-button">Explore the LLC</a>
+        </div>
+    </header>
+
+    <div id="main-gateway" class="content-section">
+        <div class="card">
+            <h2 id="top">Travel Expertise & Philosophy</h2>
+            <p>Royal Blue Ventures specializes in crafting unforgettable travel experiences through deep destination knowledge, strategic planning, and personalized service.</p>
+            
+            <div class="pillars-grid">
+                <div class="pillar">
+                    <div class="pillar-icon">🌍</div>
+                    <h3>Global Destination Mastery</h3>
+                    <p>Expertise across 50+ international destinations, from tropical paradises to cultural capitals. Personalized itineraries tailored to your travel style.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">✈️</div>
+                    <h3>Luxury Travel Planning</h3>
+                    <p>Bespoke honeymoons, anniversary getaways, and adventure expeditions. VIP accommodations, exclusive experiences, and seamless logistics.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">💎</div>
+                    <h3>Market Intelligence</h3>
+                    <p>Real-time pricing analysis, seasonal forecasting, and budget optimization. Data-driven recommendations to maximize your travel value.</p>
+                </div>
+            </div>
+
+            <div class="experience-section">
+                <h3>Professional Background</h3>
+                <ul class="experience-list">
+                    <li><strong>Destination Research:</strong> Conducted in-depth analysis of 15+ prime honeymoon destinations across 4 continents</li>
+                    <li><strong>Travel Technology:</strong> Built interactive tools for destination matching, real-time price forecasting, and trip planning</li>
+                    <li><strong>Customer Experience:</strong> Designed personalized travel matching algorithm based on travel preferences and budget constraints</li>
+                    <li><strong>Data Analytics:</strong> Developed multi-factor pricing engine accounting for seasonality, booking windows, and travel patterns</li>
+                </ul>
+            </div>
+
+            <div class="features-showcase">
+                <h3>Our Services</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h4>🎯 Honeymoon/Anniversary Finder</h4>
+                        <p>10-question quiz to discover your perfect romantic destination</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💰 Price Estimator</h4>
+                        <p>Real-time market analysis with multi-factor pricing algorithm</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🌏 Globe-Trotter Game</h4>
+                        <p>Interactive geography game testing your destination knowledge</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828" alt="World Travel" class="styled-img">
+                <p class="caption">Connecting people to extraordinary destinations worldwide.</p>
+            </div>
+
+            <div class="stats-section">
+                <h3>Impact by Numbers</h3>
+                <p class="stats-subtitle">with FORA</p>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Unlimited Destinations</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">All Habitable Continents</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5,000</div>
+                        <div class="stat-label">Hotel Partnerships</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">7,200</div>
+                        <div class="stat-label">Preferred Partnerships</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Royal Blue Ventures LLC | Managed by the Executive Suite</p>
+    </footer>
+        <!-- Toggle nav scrolled state for contrast on scroll -->
+        <script>
+            (function () {
+                const navContainer = document.getElementById('main-nav-container');
+                if (!navContainer) return;
+                const onScroll = () => {
+                    if (window.scrollY > 40) navContainer.classList.add('scrolled');
+                    else navContainer.classList.remove('scrolled');
+                };
+                window.addEventListener('scroll', onScroll, { passive: true });
+                document.addEventListener('DOMContentLoaded', onScroll);
+            })();
+        </script>
+
+</body>
+</html>
