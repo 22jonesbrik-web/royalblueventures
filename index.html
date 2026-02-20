@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Blue Ventures | The Ultimate Hub</title>
+    <meta name="description"
+        content="Royal Blue Ventures offers premium travel planning, honeymoon finder, price estimator, and interactive travel experiences.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Pacifico&family=Quicksand:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="RBV.css">
+    <!-- Twemoji -->
+    <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+    <style>
+        img.emoji {
+            height: 1em;
+            width: 1em;
+            margin: 0 .05em 0 .1em;
+            vertical-align: -0.1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-nav-container">
+        <nav class="glass-nav">
+            <div class="logo">RBV</div>
+            <div class="nav-links">
+                <a href="game.html">Globe-Trotter</a>
+                <a href="honeymoonfinder.html">Honeymoon/Anniversary Finder</a>
+                <a href="markettrends.html">Price Estimator</a>
+                <a href="aboutme.html">About Me</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="hero-header">
+        <div class="hero-image-wrapper">
+            <video class="hero-image" autoplay loop muted playsinline src="hero-video.mp4"></video>
+        </div>
+        <div class="hero-content shifted">
+            <h1>Royal Blue Ventures</h1>
+            <p class="subtitle">stress free vacations</p>
+            <a href="honeymoonfinder.html" class="cta-button">Plan Your Trip Now →</a>
+        </div>
+    </header>
+
+    <footer>
+        <p>&copy; 2025 Royal Blue Ventures LLC | Managed by the Executive Suite</p>
+    </footer>
+
+    <!-- floating preview removed -->
+    <!-- Toggle nav scrolled state for contrast on scroll -->
+    <script>
+        (function () {
+            const navContainer = document.getElementById('main-nav-container');
+            if (!navContainer) return;
+            const onScroll = () => {
+                if (window.scrollY > 40) navContainer.classList.add('scrolled');
+                else navContainer.classList.remove('scrolled');
+            };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            document.addEventListener('DOMContentLoaded', onScroll);
+        })();
+    </script>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            twemoji.parse(document.body);
+        });
+    </script>
+</body>
+
+</html>

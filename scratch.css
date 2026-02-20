@@ -1,0 +1,139 @@
+@import url('RBV.css');
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+#nav-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 20px 30px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+    font-weight: 800;
+}
+
+#nav-box a {
+    color: var(--primary);
+    text-decoration: none;
+    margin: 0 15px;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#nav-box a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+    text-shadow: 0 4px 12px rgba(255, 255, 255, 0.4);
+}
+
+#header-box {
+    background: rgba(32, 78, 207, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--gold);
+    padding: 60px 40px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+}
+
+#header-box h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.5rem;
+    margin: 0 0 10px 0;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#header-box p {
+    color: var(--surface);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+#main-content {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 60px 40px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-family: 'Pacifico', cursive;
+    color: var(--primary-dark);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(32, 78, 207, 0.2);
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+ol {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 30px 30px 30px 50px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+ol li {
+    margin-bottom: 15px;
+}
+
+img {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+iframe {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#tableau-wrapper {
+    padding: 20px;
+    background: rgba(26, 60, 175, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}

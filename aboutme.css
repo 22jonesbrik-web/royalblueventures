@@ -1,0 +1,175 @@
+@import url('RBV.css');
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.6;
+    padding: 40px 20px;
+}
+
+.resume-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+#main-content {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 60px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.resume-header {
+    margin-bottom: 50px;
+    text-align: center;
+    border-bottom: 4px solid var(--primary-dark);
+    padding-bottom: 30px;
+}
+
+.resume-header h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.5rem;
+    color: var(--gold);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin: 0 0 10px 0;
+}
+
+.tagline {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.resume-section {
+    margin-bottom: 40px;
+}
+
+.resume-section h2 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-bottom: 25px;
+}
+
+.entry {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.entry:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.entry h3 {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin: 0 0 5px 0;
+}
+
+.sub {
+    font-size: 1rem;
+    color: var(--accent-dark);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.entry ul {
+    padding-left: 20px;
+}
+
+.entry li {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.profile-box {
+    background: rgba(26, 60, 175, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 30px;
+    border-radius: 40px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.photo-placeholder {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid var(--gold);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background: var(--surface);
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#about-me,
+#certifications {
+    background: rgba(32, 78, 207, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--surface);
+    padding: 40px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#about-me:hover,
+#certifications:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar h2 {
+    font-family: 'Pacifico', cursive;
+    color: var(--gold);
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cert-list {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 2;
+}
+
+@media (max-width: 968px) {
+    .resume-container {
+        grid-template-columns: 1fr;
+    }
+}

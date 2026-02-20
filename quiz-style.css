@@ -1,0 +1,196 @@
+@import url('RBV.css');
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.6;
+}
+
+#nav-header {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 18px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#nav-header a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+#nav-header a:hover {
+    color: #ffffff;
+    text-shadow: 0 4px 12px rgba(255, 255, 255, 0.4);
+}
+
+.hero-quiz {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero-quiz h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.5rem;
+    color: var(--gold);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin: 0 0 10px 0;
+}
+
+.hero-quiz p {
+    font-size: 1.2rem;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    padding: 50px;
+    border-radius: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    text-align: center;
+}
+
+#progress-bar {
+    width: 100%;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+#progress-fill {
+    height: 100%;
+    background: var(--primary-light);
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+#question-count {
+    color: var(--primary);
+    font-weight: 800;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+#question-text {
+    font-family: 'Pacifico', cursive;
+    color: var(--primary-dark);
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+}
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.quiz-btn {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.quiz-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--primary-dark);
+}
+
+.quiz-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.winner-showcase img {
+    max-width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin: 20px 0;
+}
+
+#winner-name {
+    font-size: 3rem;
+    color: var(--accent);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Pacifico', cursive;
+}
+
+.cta-link,
+.cta-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 16px 36px;
+    background: rgba(234, 152, 54, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--surface);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 800;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+}
+
+.cta-link:hover,
+.cta-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    background: rgba(238, 177, 210, 0.9);
+    color: var(--primary-dark);
+}
+
+.cta-link:active,
+.cta-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+    .btn-grid {
+        grid-template-columns: 1fr;
+    }
+}
