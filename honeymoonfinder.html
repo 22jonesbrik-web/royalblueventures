@@ -33,6 +33,10 @@
 
         <div id="answer-buttons" class="btn-grid">
         </div>
+
+        <div id="back-container" style="margin-top: 24px; min-height: 40px;">
+            <!-- Back button injected here via JS -->
+        </div>
     </div>
 
 
@@ -251,6 +255,7 @@
         // Quiz state
         let currentQuestion = 0;
         let scores = {};
+        let history = []; // Add history for back button
 
         // Initialize scores
         for (let dest in destinations) {
@@ -273,6 +278,17 @@
             const buttonContainer = document.getElementById('answer-buttons');
             buttonContainer.innerHTML = '';
 
+            // Handle back button visibility
+            const backContainer = document.getElementById('back-container');
+            backContainer.innerHTML = '';
+            if (currentQuestion > 0) {
+                const backBtn = document.createElement('button');
+                backBtn.className = 'back-btn';
+                backBtn.textContent = '← Back';
+                backBtn.onclick = goBack;
+                backContainer.appendChild(backBtn);
+            }
+
             // Add answer buttons
             question.answers.forEach((answer, index) => {
                 const btn = document.createElement('button');
@@ -287,6 +303,9 @@
             // Budget questions (0, 1, 2) get 2x weight
             const multiplier = currentQuestion <= 2 ? 2 : 1;
 
+            // Save to history to allow going back
+            history.push({ answer: answer, multiplier: multiplier });
+
             // Add points to destinations
             for (let dest in answer.points) {
                 scores[dest] += answer.points[dest] * multiplier;
@@ -298,6 +317,21 @@
                 loadQuestion();
             } else {
                 showResults();
+            }
+        }
+
+        function goBack() {
+            if (currentQuestion > 0) {
+                // Remove last action from history
+                const lastAction = history.pop();
+
+                // Subtract points
+                for (let dest in lastAction.answer.points) {
+                    scores[dest] -= lastAction.answer.points[dest] * lastAction.multiplier;
+                }
+
+                currentQuestion--;
+                loadQuestion();
             }
         }
 
@@ -331,6 +365,7 @@
             const buttonContainer = document.getElementById('answer-buttons');
             buttonContainer.innerHTML = '';
             buttonContainer.style.cssText = 'display: flex; justify-content: center;';
+            document.getElementById('back-container').innerHTML = ''; // Hide back button
 
             const findBtn = document.createElement('a');
             findBtn.href = resultUrl;
