@@ -1,175 +1,301 @@
-@import url('RBV.css');
+/* ===================================================
+   ABOUT ME — Premium Stylesheet
+   Royal Blue Ventures · Luxury Redesign
+   ===================================================
 
-body {
-    background-color: var(--bg);
-    color: var(--text);
+   DESIGN TOKENS
+   ─────────────
+   Background:     #FAF6F1  (Warm Cream)
+   Card:           #F5EFE7  (Soft Beige)
+   Heading/Text:   #204ECF  (Royal Blue — matches index)
+   Accent:         #C9A96E  (Champagne Gold)
+   Accent Hover:   #B08D4F  (Deep Gold)
+   Muted Text:     #7A8499  (Slate)
+   Border:         #E8DFD1  (Warm Sand)
+   =================================================== */
+
+/* ─── Google Fonts ─── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ─── Design Tokens ─── */
+:root {
+    --quiz-bg: #FAF6F1;
+    --quiz-card: #F5EFE7;
+    --quiz-royal: #204ECF;
+    --quiz-royal-light: #85A5F2;
+    --quiz-accent: #C9A96E;
+    --quiz-accent-hover: #B08D4F;
+    --quiz-muted: #7A8499;
+    --quiz-border: #E8DFD1;
+    --quiz-white: #FFFFFF;
+    --quiz-text-body: #3D4A5C;
+
+    --font-heading: 'Playfair Display', 'Georgia', serif;
+    --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+}
+
+/* ─── Global Reset ─── */
+*,
+*::before,
+*::after {
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ─── Body & Background ─── */
+body {
+    background-color: var(--quiz-bg);
+    color: var(--quiz-text-body);
+    font-family: var(--font-body);
     line-height: 1.6;
-    padding: 40px 20px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
 }
 
-.resume-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
+/* ─── Margin Decorations (Botanical Line Art) ─── */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.06;
+    background-repeat: repeat-y;
+    background-size: 260px auto;
 }
 
-#main-content {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 60px;
-    border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+body::before {
+    left: 0;
+    background-position: center;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 800' fill='none' stroke='%23204ECF' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M130 50 Q160 80 150 130 Q145 160 130 180 Q115 160 110 130 Q100 80 130 50Z'/%3E%3Cpath d='M130 50 L130 180'/%3E%3Cpath d='M120 90 Q110 100 105 95'/%3E%3Cpath d='M140 90 Q150 100 155 95'/%3E%3Cpath d='M118 120 Q105 130 100 125'/%3E%3Cpath d='M142 120 Q155 130 160 125'/%3E%3Cpath d='M80 250 Q130 230 160 280 Q140 260 120 260 Q100 260 80 250Z'/%3E%3Cpath d='M80 250 Q110 270 130 310 Q120 290 100 280 Q90 270 80 250Z'/%3E%3Cpath d='M80 250 L130 295'/%3E%3Cpath d='M170 420 Q200 380 190 440 Q185 480 160 500 Q165 460 170 420Z'/%3E%3Cpath d='M170 420 Q140 450 150 500 Q155 480 170 420Z'/%3E%3Cpath d='M170 420 L160 500'/%3E%3Cpath d='M100 580 Q120 550 140 570 Q130 560 120 565 Q110 570 100 580Z'/%3E%3Cpath d='M100 580 Q90 620 110 650 Q100 630 100 580Z'/%3E%3Cpath d='M100 580 Q130 600 120 640'/%3E%3Cpath d='M60 700 Q80 680 90 710 Q80 700 60 700Z'/%3E%3Cpath d='M180 750 Q200 730 195 760 Q190 750 180 750Z'/%3E%3C/svg%3E");
 }
 
-#sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+body::after {
+    right: 0;
+    background-position: center;
+    transform: scaleX(-1);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 800' fill='none' stroke='%23204ECF' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M130 50 Q160 80 150 130 Q145 160 130 180 Q115 160 110 130 Q100 80 130 50Z'/%3E%3Cpath d='M130 50 L130 180'/%3E%3Cpath d='M120 90 Q110 100 105 95'/%3E%3Cpath d='M140 90 Q150 100 155 95'/%3E%3Cpath d='M118 120 Q105 130 100 125'/%3E%3Cpath d='M142 120 Q155 130 160 125'/%3E%3Cpath d='M80 250 Q130 230 160 280 Q140 260 120 260 Q100 260 80 250Z'/%3E%3Cpath d='M80 250 Q110 270 130 310 Q120 290 100 280 Q90 270 80 250Z'/%3E%3Cpath d='M80 250 L130 295'/%3E%3Cpath d='M170 420 Q200 380 190 440 Q185 480 160 500 Q165 460 170 420Z'/%3E%3Cpath d='M170 420 Q140 450 150 500 Q155 480 170 420Z'/%3E%3Cpath d='M170 420 L160 500'/%3E%3Cpath d='M100 580 Q120 550 140 570 Q130 560 120 565 Q110 570 100 580Z'/%3E%3Cpath d='M100 580 Q90 620 110 650 Q100 630 100 580Z'/%3E%3Cpath d='M100 580 Q130 600 120 640'/%3E%3Cpath d='M60 700 Q80 680 90 710 Q80 700 60 700Z'/%3E%3Cpath d='M180 750 Q200 730 195 760 Q190 750 180 750Z'/%3E%3C/svg%3E");
 }
 
-.resume-header {
-    margin-bottom: 50px;
+/* ─── Navigation Header ─── */
+#nav-header {
+    background: var(--quiz-white);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     text-align: center;
-    border-bottom: 4px solid var(--primary-dark);
-    padding-bottom: 30px;
+    box-shadow: 0 1px 0 var(--quiz-border);
+    border-bottom: 1px solid var(--quiz-border);
 }
 
-.resume-header h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 3.5rem;
-    color: var(--gold);
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    margin: 0 0 10px 0;
+#nav-header nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.tagline {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--primary);
+#nav-header a {
+    color: var(--quiz-royal);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
+    font-family: var(--font-body);
+    transition: color 0.3s ease;
+    position: relative;
 }
 
-.resume-section {
+#nav-header a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--quiz-accent);
+    transition: width 0.3s ease;
+}
+
+#nav-header a:hover {
+    color: var(--quiz-accent-hover);
+}
+
+#nav-header a:hover::after {
+    width: 100%;
+}
+
+/* ─── Hero / Header Section ─── */
+.hero-about {
+    text-align: center;
+    padding: 70px 24px 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-about h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    color: var(--quiz-royal);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.hero-about p {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    color: var(--quiz-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.hero-about::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--quiz-accent);
+    margin: 32px auto 0;
+    border-radius: 2px;
+}
+
+/* ─── Glass Panel Container ─── */
+.glass-panel {
+    background: var(--quiz-card);
+    max-width: 800px;
+    margin: 0 auto 80px auto;
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow:
+        0 4px 24px rgba(32, 78, 207, 0.06),
+        0 1px 4px rgba(32, 78, 207, 0.04);
+    border: 1px solid var(--quiz-border);
+    position: relative;
+    z-index: 1;
+    transition: box-shadow 0.4s ease;
+}
+
+.glass-panel:hover {
+    box-shadow:
+        0 8px 40px rgba(32, 78, 207, 0.09),
+        0 2px 8px rgba(32, 78, 207, 0.05);
+}
+
+/* ─── Top Center Profile Box ─── */
+.profile-box {
+    display: flex;
+    justify-content: center;
     margin-bottom: 40px;
 }
 
-.resume-section h2 {
-    font-family: 'Pacifico', cursive;
-    font-size: 2.2rem;
-    color: var(--primary);
-    margin-bottom: 25px;
+.profile-photo {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--quiz-white);
+    box-shadow: 0 4px 16px rgba(32, 78, 207, 0.15);
 }
 
+/* ─── Content Formatting ─── */
+.content-section {
+    margin-bottom: 40px;
+}
+
+.content-section:last-child {
+    margin-bottom: 0;
+}
+
+.content-section h2 {
+    font-family: var(--font-heading);
+    color: var(--quiz-royal);
+    font-size: 2rem;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--quiz-border);
+    padding-bottom: 12px;
+}
+
+.content-section p {
+    color: var(--quiz-text-body);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+/* ─── Entries (Jobs / Education) ─── */
 .entry {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    margin-bottom: 25px;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    margin-bottom: 30px;
+    background: var(--quiz-white);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--quiz-border);
+    box-shadow: 0 2px 8px rgba(32, 78, 207, 0.03);
 }
 
-.entry:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+.entry:last-child {
+    margin-bottom: 0;
 }
 
 .entry h3 {
+    font-family: var(--font-heading);
+    color: var(--quiz-royal);
     font-size: 1.4rem;
-    color: var(--primary-dark);
-    margin: 0 0 5px 0;
+    margin-bottom: 4px;
 }
 
-.sub {
-    font-size: 1rem;
-    color: var(--accent-dark);
-    font-weight: 800;
-    margin-bottom: 15px;
-}
-
-.entry ul {
-    padding-left: 20px;
-}
-
-.entry li {
-    margin-bottom: 10px;
+.entry .sub {
+    color: var(--quiz-accent);
     font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.profile-box {
-    background: rgba(26, 60, 175, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    padding: 30px;
-    border-radius: 40px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+/* ─── Lists ─── */
+.entry ul,
+.content-section ul.cert-list {
+    list-style-type: none;
 }
 
-.photo-placeholder {
-    width: 250px;
-    height: 250px;
-    margin: 0 auto;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 6px solid var(--gold);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    background: var(--surface);
+.entry ul li,
+.content-section ul.cert-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    color: var(--quiz-text-body);
 }
 
-.profile-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.entry ul li::before,
+.content-section ul.cert-list li::before {
+    content: "•";
+    color: var(--quiz-accent);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 4px;
+    top: -4px;
 }
 
-#about-me,
-#certifications {
-    background: rgba(32, 78, 207, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    color: var(--surface);
-    padding: 40px;
-    border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#about-me:hover,
-#certifications:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-}
-
-#sidebar h2 {
-    font-family: 'Pacifico', cursive;
-    color: var(--gold);
-    font-size: 2rem;
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.cert-list {
-    font-size: 1.1rem;
-    font-weight: 700;
-    line-height: 2;
-}
-
-@media (max-width: 968px) {
-    .resume-container {
-        grid-template-columns: 1fr;
+/* Responsive */
+@media (max-width: 768px) {
+    .glass-panel {
+        padding: 40px 24px;
+        margin: 0 16px 60px;
     }
 }
