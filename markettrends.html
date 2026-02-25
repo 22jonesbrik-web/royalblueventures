@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Trends | Royal Blue Ventures</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:wght@700&family=Quicksand:wght@300;500;700&display=swap"
-        rel="stylesheet">
+    <title>Price Estimator | Royal Blue Ventures</title>
+    <meta name="description"
+        content="Estimate your travel costs with our smart price forecasting tool. Powered by Royal Blue Ventures.">
     <link rel="stylesheet" href="trends-style.css">
 </head>
 
@@ -20,72 +19,69 @@
     </div>
 
     <header class="hero-trends">
-        <h1>Travel Market Insights</h1>
-        <p>Live Price Forecasting & Destination Analytics</p>
+        <h1>Price Estimator</h1>
+        <p>Select your details to see total trip budget estimates.</p>
     </header>
 
     <div id="forecaster-container">
         <div class="glass-card">
-            <h2>Price Estimator</h2>
-            <p class="instruction">Select your details to see total trip budget estimates.</p>
+
+
+            <div class="input-group">
+                <label>Preferred Destination</label>
+                <select id="destination" onchange="updatePreview()">
+                    <!-- Budget-Friendly -->
+                    <option value="250" data-key="cancun">Cancún, Mexico</option>
+                    <option value="280" data-key="punta_cana">Punta Cana, Dominican Republic</option>
+                    <option value="200" data-key="costa_rica">Costa Rica</option>
+                    <option value="220" data-key="puerto_rico">Puerto Rico</option>
+                    <option value="250" data-key="florida">Florida (Miami & Keys)</option>
+                    <option value="280" data-key="california">California (Disneyland & Coast)</option>
+                    <option value="250" data-key="seattle">Seattle, WA</option>
+                    <option value="350" data-key="new_york">New York City</option>
+                    <option value="300" data-key="park_city">Park City, Utah</option>
+                    <option value="200" data-key="caribbean_cruise">Caribbean Cruise</option>
+                    <option value="250" data-key="alaska_cruise">Alaska Cruise</option>
+                    <option value="200" data-key="mexico_cruise">Mexican Riviera Cruise</option>
+                    <!-- Mid-Range -->
+                    <option value="400" data-key="hawaii">Hawaii</option>
+                    <option value="380" data-key="cabos">Los Cabos, Mexico</option>
+                    <option value="500" data-key="fiji">Fiji</option>
+                    <option value="450" data-key="st_lucia">St. Lucia</option>
+                    <!-- Aspirational / Luxury -->
+                    <option value="600" data-key="swiss_alps">Swiss Alps (Summer)</option>
+                    <option value="650" data-key="lake_como">Lake Como, Italy</option>
+                    <option value="550" data-key="london">London, England</option>
+                    <option value="900" data-key="bora_bora">Bora Bora</option>
+                    <option value="800" data-key="tahiti">Tahiti</option>
+                </select>
+            </div>
 
             <div class="input-grid">
-                <div class="input-group">
-                    <label>Preferred Destination</label>
-                    <select id="destination" onchange="updatePreview()">
-                        <option value="1500">Maldives</option>
-                        <option value="1200">Bali, Indonesia</option>
-                        <option value="1800">Hawaii</option>
-                        <option value="1400">Caribbean Islands</option>
-                        <option value="1600">Paris, France</option>
-                        <option value="1550">Italy</option>
-                        <option value="1300">Greece</option>
-                        <option value="1900">Dubai</option>
-                        <option value="1700">Switzerland</option>
-                        <option value="1400">Iceland</option>
-                        <option value="900">Peru</option>
-                        <option value="1500">Japan</option>
-                        <option value="1100">Costa Rica</option>
-                        <option value="1300">Egypt</option>
-                        <option value="950">Nepal</option>
-                    </select>
-                </div>
-
                 <div class="input-group">
                     <label>Start Date</label>
                     <input type="date" id="start-date" onchange="updatePreview()">
                 </div>
-
                 <div class="input-group">
                     <label>End Date</label>
                     <input type="date" id="end-date" onchange="updatePreview()">
                 </div>
-            </div>
-
-            <div class="input-grid">
                 <div class="input-group">
                     <label>Travelers</label>
                     <input type="number" id="travelers" value="1" min="1" onchange="updatePreview()">
                 </div>
-                <div class="input-group">
-                    <label>Days of Travel</label>
-                    <input type="number" id="duration" value="0" min="0" disabled
-                        style="background: rgba(255,255,255,0.05);">
-                </div>
-                <div class="input-group">
-                    <label>Booking Window (Days Ahead)</label>
-                    <input type="number" id="advance-days" value="30" min="0" onchange="updatePreview()">
-                </div>
             </div>
+            <input type="hidden" id="duration" value="0">
+            <input type="hidden" id="advance-days" value="30">
 
             <div class="points-section">
                 <button type="button" id="points-btn" class="points-toggle" onclick="togglePoints()">
-                    ✈️ Use Points for Flights
+                    Use Points for Flights
                 </button>
                 <p id="points-status" class="points-status hidden">Flight savings applied!</p>
             </div>
 
-            <button onclick="calculateTrend()" class="calc-btn">🔍 Analyze Market Trend</button>
+            <button onclick="calculateTrend()" class="calc-btn">Analyze Market Trend</button>
 
             <div id="preview-display" class="hidden info-box">
                 <p id="preview-text"></p>
@@ -106,7 +102,7 @@
                         <span id="booking-discount">-0%</span>
                     </div>
                     <div class="price-row" id="flight-discount-row" style="display:none;">
-                        <span>✈️ Flight Points Discount:</span>
+                        <span>Flight Points Discount:</span>
                         <span id="flight-discount">-0%</span>
                     </div>
                     <div class="price-row total">
@@ -244,9 +240,9 @@
             document.getElementById('price-output').innerText = '$' + totalCost.toLocaleString('en-US', { maximumFractionDigits: 2 });
 
             let insight = `${durationDays} night(s) × ${travelers} traveler(s) | ${seasonData.label}`;
-            if (usePointsForFlights) insight += ' | 🎁 Flight points applied!';
-            if (advanceDays >= 90) insight += ' | ✨ Early booking! Great savings!';
-            else if (advanceDays < 7) insight += ' | ⚡ Last-minute premium applied.';
+            if (usePointsForFlights) insight += ' | Flight points applied!';
+            if (advanceDays >= 90) insight += ' | Early booking! Great savings!';
+            else if (advanceDays < 7) insight += ' | Last-minute premium applied.';
             document.getElementById('trend-insight').innerText = insight;
 
             document.getElementById('result-display').classList.remove('hidden');
@@ -256,6 +252,22 @@
         document.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') calculateTrend();
         });
+
+        // Auto-select destination from URL param (e.g. ?dest=cancun)
+        (function autoSelectFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const destKey = urlParams.get('dest');
+            if (destKey) {
+                const select = document.getElementById('destination');
+                const options = select.querySelectorAll('option');
+                for (const opt of options) {
+                    if (opt.dataset.key === destKey) {
+                        opt.selected = true;
+                        break;
+                    }
+                }
+            }
+        })();
     </script>
 </body>
 

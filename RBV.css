@@ -233,7 +233,7 @@ img {
     display: inline-block;
     margin-top: 35px;
     padding: 18px 48px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(32, 78, 207, 0.6);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     color: var(--surface);
@@ -243,8 +243,9 @@ img {
     font-size: 1.1rem;
     letter-spacing: 1px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    box-shadow: var(--shadow-glass);
-    border: var(--border-glass);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -254,9 +255,9 @@ img {
 
 .cta-button:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-glass-hover);
-    background: rgba(255, 255, 255, 0.3);
-    color: var(--primary-dark);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    background: rgba(32, 78, 207, 0.85);
+    color: #fff;
 }
 
 .cta-button:active {

@@ -4,21 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Honeymoon/Anniversary Finder | Royal Blue Ventures</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:wght@700&family=Quicksand:wght@300;500;700&display=swap"
-        rel="stylesheet">
+    <title>The Royal Retreat Finder | Royal Blue Ventures</title>
+    <meta name="description"
+        content="Discover your perfect honeymoon or anniversary destination with our luxury quiz. Tailored recommendations from Royal Blue Ventures.">
     <link rel="stylesheet" href="quiz-style.css">
-    <!-- Twemoji -->
-    <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
-    <style>
-        img.emoji {
-            height: 1em;
-            width: 1em;
-            margin: 0 .05em 0 .1em;
-            vertical-align: -0.1em;
-        }
-    </style>
 </head>
 
 <body>
@@ -46,192 +35,216 @@
         </div>
     </div>
 
-    <div id="result-container" class="glass-panel hidden">
-        <h2>Your Ideal Royal Gateway Is...</h2>
-        <h1 id="winner-name">Destination Name</h1>
 
-        <div class="winner-showcase">
-            <img id="winner-img" src="" alt="Destination">
-            <p id="winner-desc">Description goes here.</p>
-        </div>
 
-        <h3>Ready to plan this trip?</h3>
-        <a href="markettrends.html" class="cta-link">Get a Price Estimate on the Market Engine →</a>
-        <br><br>
-        <button onclick="location.reload()" class="cta-btn">Start Over</button>
-    </div>
 
     <script>
         // Quiz questions with answer choices
+        // Questions 0-2 are BUDGET questions and get 2x weight
         const quizQuestions = [
+            {
+                question: "What's your total honeymoon budget (including flights)?",
+                answers: [
+                    { text: "Under $2,500", points: { cancun: 3, punta_cana: 3, costa_rica: 3, puerto_rico: 3, florida: 3, california: 3, seattle: 3, new_york: 2, park_city: 3, caribbean_cruise: 3, alaska_cruise: 2, mexico_cruise: 3 } },
+                    { text: "$2,500 – $5,000", points: { cancun: 2, punta_cana: 2, costa_rica: 2, puerto_rico: 2, florida: 2, california: 2, new_york: 3, park_city: 2, hawaii: 3, cabos: 3, caribbean_cruise: 2, alaska_cruise: 3, mexico_cruise: 2, fiji: 1, st_lucia: 1 } },
+                    { text: "$5,000 – $8,000", points: { hawaii: 2, cabos: 2, fiji: 3, st_lucia: 3, swiss_alps: 2, lake_como: 2, london: 2, bora_bora: 1, tahiti: 1 } },
+                    { text: "$8,000 – $10,000", points: { swiss_alps: 3, lake_como: 3, london: 3, bora_bora: 3, tahiti: 3, st_lucia: 2, fiji: 2 } }
+                ]
+            },
+            {
+                question: "How many nights are you planning?",
+                answers: [
+                    { text: "1–2 nights", points: { florida: 3, seattle: 3, new_york: 3, park_city: 3, california: 2 } },
+                    { text: "3–4 nights", points: { florida: 2, seattle: 2, new_york: 2, park_city: 2, california: 3, cancun: 2, puerto_rico: 2, caribbean_cruise: 2, mexico_cruise: 2, london: 2 } },
+                    { text: "5–6 nights", points: { cancun: 3, punta_cana: 3, hawaii: 3, cabos: 3, costa_rica: 2, caribbean_cruise: 3, mexico_cruise: 3, st_lucia: 2, lake_como: 2, alaska_cruise: 2 } },
+                    { text: "7+ nights", points: { fiji: 3, bora_bora: 3, tahiti: 3, swiss_alps: 3, lake_como: 3, costa_rica: 3, alaska_cruise: 3, st_lucia: 3, hawaii: 2 } }
+                ]
+            },
+            {
+                question: "What's your ideal spending style?",
+                answers: [
+                    { text: "All-inclusive package", points: { cancun: 3, punta_cana: 3, caribbean_cruise: 3, mexico_cruise: 3, alaska_cruise: 3, puerto_rico: 2, cabos: 2 } },
+                    { text: "Mix of dining out & self-catering", points: { costa_rica: 3, florida: 3, california: 3, seattle: 3, hawaii: 2, park_city: 2, new_york: 2 } },
+                    { text: "Splurge on key experiences", points: { hawaii: 3, st_lucia: 3, fiji: 2, cabos: 2, new_york: 3, london: 2, swiss_alps: 2 } },
+                    { text: "Fine dining & luxury every day", points: { bora_bora: 3, tahiti: 3, lake_como: 3, london: 3, swiss_alps: 3, st_lucia: 2 } }
+                ]
+            },
             {
                 question: "What's your ideal climate?",
                 answers: [
-                    { text: "Tropical & Warm", points: { maldives: 3, bali: 2, hawaii: 3, caribbean: 2, greece: 0 } },
-                    { text: "Temperate & Mild", points: { italy: 3, greece: 2, france: 2, japan: 1, peru: 1 } },
-                    { text: "Cool & Snowy", points: { switzerland: 3, iceland: 2, canada: 1, norway: 2 } },
-                    { text: "Desert & Dry", points: { dubai: 2, morocco: 2, egypt: 1, peru: 2 } }
+                    { text: "Tropical & Warm", points: { cancun: 3, punta_cana: 3, hawaii: 3, fiji: 3, bora_bora: 3, tahiti: 3, st_lucia: 3, puerto_rico: 3, florida: 2, caribbean_cruise: 2, mexico_cruise: 2 } },
+                    { text: "Temperate & Mild", points: { california: 3, seattle: 2, costa_rica: 2, lake_como: 3, london: 2, cabos: 2 } },
+                    { text: "Cool & Mountain", points: { park_city: 3, swiss_alps: 3, alaska_cruise: 3, seattle: 2 } },
+                    { text: "City Vibes", points: { new_york: 3, london: 3, seattle: 2, california: 2, lake_como: 1 } }
                 ]
             },
             {
-                question: "How do you prefer to spend your days?",
+                question: "How do you want to spend your days?",
                 answers: [
-                    { text: "Beach & Water Activities", points: { maldives: 3, hawaii: 3, bali: 2, caribbean: 3 } },
-                    { text: "Cultural Exploration", points: { italy: 3, japan: 3, greece: 2, peru: 2, morocco: 2 } },
-                    { text: "Adventure & Hiking", points: { switzerland: 3, iceland: 2, peru: 3, canada: 2, nepal: 3 } },
-                    { text: "Luxury & Relaxation", points: { dubai: 3, france: 2, maldives: 1, bali: 1 } }
+                    { text: "Beach & Relaxation", points: { cancun: 3, punta_cana: 3, hawaii: 3, fiji: 3, bora_bora: 3, tahiti: 3, st_lucia: 3, florida: 3, puerto_rico: 2, cabos: 3, caribbean_cruise: 2, mexico_cruise: 2 } },
+                    { text: "Adventure & Hiking", points: { costa_rica: 3, park_city: 3, swiss_alps: 3, alaska_cruise: 3, hawaii: 2, fiji: 2, seattle: 2 } },
+                    { text: "City Exploring & Culture", points: { new_york: 3, london: 3, california: 3, seattle: 3, lake_como: 2, puerto_rico: 2 } },
+                    { text: "Mix of Everything", points: { hawaii: 2, costa_rica: 2, cancun: 2, california: 2, lake_como: 2, st_lucia: 2, cabos: 2, florida: 2 } }
                 ]
             },
             {
-                question: "What's your approximate budget per night?",
+                question: "How do you feel about cruises?",
                 answers: [
-                    { text: "$50-150", points: { peru: 3, morocco: 2, bali: 2, caribbean: 1 } },
-                    { text: "$150-400", points: { greece: 2, italy: 2, japan: 2, caribbean: 2, costa_rica: 2 } },
-                    { text: "$400-800", points: { france: 2, switzerland: 2, hawaii: 2, dubai: 1 } },
-                    { text: "$800+", points: { maldives: 3, dubai: 3, bali: 1, switzerland: 1 } }
-                ]
-            },
-            {
-                question: "How important is wildlife & nature?",
-                answers: [
-                    { text: "Very Important", points: { costa_rica: 3, peru: 3, nepal: 2, iceland: 2, canada: 2 } },
-                    { text: "Somewhat Important", points: { bali: 2, hawaii: 2, caribbean: 2, japan: 1, morocco: 1 } },
-                    { text: "Not Very Important", points: { france: 2, italy: 2, dubai: 2, greece: 1 } },
-                    { text: "I prefer cities", points: { dubai: 3, tokyo: 3, france: 1, italy: 1 } }
-                ]
-            },
-            {
-                question: "What's your preferred travel season?",
-                answers: [
-                    { text: "Summer (June-August)", points: { greece: 2, france: 2, iceland: 3, switzerland: 3, hawaii: 2 } },
-                    { text: "Winter (Dec-Feb)", points: { maldives: 2, caribbean: 2, bali: 2, dubai: 3, egypt: 2 } },
-                    { text: "Spring (Mar-May)", points: { japan: 3, peru: 2, italy: 2, morocco: 2 } },
-                    { text: "Fall (Sept-Nov)", points: { nepal: 2, costa_rica: 2, greece: 1, caribbean: 1 } }
-                ]
-            },
-            {
-                question: "How do you feel about long flights?",
-                answers: [
-                    { text: "I prefer nearby destinations (0-6 hrs)", points: { caribbean: 2, mexico: 3, costa_rica: 2, hawaii: 1 } },
-                    { text: "Medium distance is fine (6-12 hrs)", points: { bali: 2, dubai: 2, japan: 2, peru: 2 } },
-                    { text: "Long flights don't bother me (12+ hrs)", points: { maldives: 2, fiji: 2, australia: 2 } },
-                    { text: "Local trips only", points: { greece: 3, italy: 3, france: 2, switzerland: 1 } }
-                ]
-            },
-            {
-                question: "What's your dining style preference?",
-                answers: [
-                    { text: "Fine Dining & Gourmet", points: { france: 3, italy: 2, dubai: 2, japan: 1 } },
-                    { text: "Street Food & Local Cuisine", points: { morocco: 3, peru: 3, japan: 2, thailand: 2 } },
-                    { text: "Farm-to-Table & Organic", points: { costa_rica: 2, switzerland: 2, greece: 2 } },
-                    { text: "All-Inclusive Resorts", points: { maldives: 2, caribbean: 3, bali: 1 } }
-                ]
-            },
-            {
-                question: "How do you prefer to explore?",
-                answers: [
-                    { text: "Guided Tours & Structure", points: { egypt: 3, japan: 2, peru: 2, italy: 1 } },
-                    { text: "Independent & Self-Guided", points: { iceland: 3, greece: 2, morocco: 2, switzerland: 1 } },
-                    { text: "Private Experiences", points: { maldives: 2, dubai: 3, france: 1, bali: 1 } },
-                    { text: "Group Adventures", points: { nepal: 2, costa_rica: 2, canada: 2 } }
+                    { text: "Love them!", points: { caribbean_cruise: 3, alaska_cruise: 3, mexico_cruise: 3 } },
+                    { text: "Open to trying", points: { caribbean_cruise: 2, alaska_cruise: 2, mexico_cruise: 2, cancun: 1, hawaii: 1 } },
+                    { text: "Prefer staying on land", points: { cancun: 2, punta_cana: 2, hawaii: 2, fiji: 2, bora_bora: 2, tahiti: 2, costa_rica: 2, florida: 2, park_city: 2, swiss_alps: 2, lake_como: 2, london: 2, st_lucia: 2, cabos: 2 } },
+                    { text: "Not for me", points: { new_york: 2, california: 2, seattle: 2, swiss_alps: 2, lake_como: 2, london: 2, bora_bora: 2, tahiti: 2, park_city: 2, florida: 2, costa_rica: 2 } }
                 ]
             },
             {
                 question: "What's your vacation vibe?",
                 answers: [
-                    { text: "Romantic & Intimate", points: { maldives: 3, bali: 3, france: 2, greece: 2, italy: 1 } },
-                    { text: "Exciting & Vibrant", points: { dubai: 2, tokyo: 3, caribbean: 2, ibiza: 3 } },
-                    { text: "Peaceful & Serene", points: { iceland: 3, switzerland: 2, nepal: 3, bali: 1 } },
-                    { text: "Cultural & Educational", points: { peru: 2, egypt: 2, japan: 2, italy: 3 } }
+                    { text: "Romantic & Intimate", points: { bora_bora: 3, tahiti: 3, lake_como: 3, st_lucia: 3, fiji: 3, hawaii: 2, cancun: 2, park_city: 2 } },
+                    { text: "Fun & Adventurous", points: { costa_rica: 3, california: 3, new_york: 2, alaska_cruise: 3, caribbean_cruise: 2, mexico_cruise: 2, hawaii: 2 } },
+                    { text: "Peaceful & Nature", points: { fiji: 3, costa_rica: 3, alaska_cruise: 3, park_city: 3, seattle: 3, swiss_alps: 2, tahiti: 2 } },
+                    { text: "Instagram-worthy & Trendy", points: { bora_bora: 3, swiss_alps: 3, lake_como: 3, london: 3, tahiti: 2, st_lucia: 2, new_york: 2, california: 2 } }
                 ]
             },
             {
-                question: "What's the most important factor?",
+                question: "How far are you willing to fly?",
                 answers: [
-                    { text: "Beaches & Scenery", points: { maldives: 3, hawaii: 3, caribbean: 2, bali: 2 } },
-                    { text: "History & Culture", points: { italy: 3, egypt: 3, greece: 2, peru: 2, japan: 1 } },
-                    { text: "Luxury & Comfort", points: { dubai: 3, france: 2, maldives: 1, switzerland: 1 } },
-                    { text: "Adventure & Activities", points: { peru: 3, iceland: 2, costa_rica: 3, nepal: 2, canada: 1 } }
+                    { text: "Short flight (0–4 hrs)", points: { florida: 3, cancun: 3, punta_cana: 2, puerto_rico: 2, new_york: 3, california: 2, caribbean_cruise: 2, cabos: 2 } },
+                    { text: "Medium (4–8 hrs)", points: { hawaii: 3, costa_rica: 3, cancun: 2, cabos: 3, alaska_cruise: 2, mexico_cruise: 3, park_city: 2, seattle: 2, california: 2, st_lucia: 2 } },
+                    { text: "Long is fine (8+ hrs)", points: { fiji: 3, bora_bora: 3, tahiti: 3, swiss_alps: 3, lake_como: 3, london: 3, st_lucia: 2 } },
+                    { text: "I'd rather drive", points: { florida: 3, california: 3, park_city: 3, seattle: 3, new_york: 2 } }
+                ]
+            },
+            {
+                question: "What matters most to you?",
+                answers: [
+                    { text: "Best value for money", points: { cancun: 3, punta_cana: 3, puerto_rico: 3, costa_rica: 3, florida: 3, caribbean_cruise: 3, mexico_cruise: 3, park_city: 2, california: 2, alaska_cruise: 2 } },
+                    { text: "Unique experiences", points: { costa_rica: 3, alaska_cruise: 3, fiji: 3, swiss_alps: 2, hawaii: 2, new_york: 2, bora_bora: 2, seattle: 2 } },
+                    { text: "Luxury & Comfort", points: { bora_bora: 3, tahiti: 3, lake_como: 3, london: 3, swiss_alps: 3, st_lucia: 3, cabos: 2 } },
+                    { text: "Beautiful scenery & photos", points: { bora_bora: 3, tahiti: 3, swiss_alps: 3, fiji: 3, hawaii: 3, lake_como: 3, st_lucia: 3, alaska_cruise: 2, park_city: 2 } }
+                ]
+            },
+            {
+                question: "What's your dining style?",
+                answers: [
+                    { text: "Street food & local spots", points: { cancun: 3, costa_rica: 3, puerto_rico: 3, california: 3, new_york: 3, seattle: 3, florida: 2, hawaii: 2 } },
+                    { text: "All-inclusive buffets", points: { punta_cana: 3, cancun: 3, caribbean_cruise: 3, alaska_cruise: 3, mexico_cruise: 3, cabos: 2 } },
+                    { text: "Trendy restaurants", points: { new_york: 3, london: 3, california: 3, seattle: 3, lake_como: 2, cabos: 2, hawaii: 2, st_lucia: 2 } },
+                    { text: "Fine dining experiences", points: { lake_como: 3, london: 3, bora_bora: 3, tahiti: 3, swiss_alps: 3, st_lucia: 2, fiji: 2 } }
                 ]
             }
         ];
 
         // Destination data
         const destinations = {
-            maldives: {
-                name: "Maldives",
-                description: "Crystal-clear waters, luxury overwater bungalows, and pristine coral reefs make this the ultimate tropical romance destination.",
-                image: "https://images.unsplash.com/photo-1583522868906-2dd4a3f7f9e3?w=400&h=300&fit=crop"
+            // Budget-Friendly ($1,500 - $3,500)
+            cancun: {
+                name: "Cancún, Mexico",
+                description: "All-inclusive resorts, turquoise Caribbean water, and vibrant nightlife — all just a short flight away. One of the best-value honeymoon destinations with packages starting under $1,500.",
+                image: "https://images.unsplash.com/photo-1510097467424-192d713fd8b2?w=400&h=300&fit=crop"
             },
-            bali: {
-                name: "Bali, Indonesia",
-                description: "Exotic temples, stunning beaches, rice terraces, and affordable luxury create the perfect blend of adventure and romance.",
-                image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&h=300&fit=crop"
-            },
-            hawaii: {
-                name: "Hawaii",
-                description: "Volcanic landscapes, pristine beaches, outdoor adventures, and aloha spirit create unforgettable memories.",
-                image: "https://images.unsplash.com/photo-1542259009477-d625272157b7?w=400&h=300&fit=crop"
-            },
-            caribbean: {
-                name: "Caribbean Islands",
-                description: "Turquoise waters, white-sand beaches, and vibrant culture offer an idyllic tropical escape.",
-                image: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=400&h=300&fit=crop"
-            },
-            france: {
-                name: "France",
-                description: "Romantic Paris, lavender fields of Provence, and world-class wine create timeless elegance.",
-                image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&h=300&fit=crop"
-            },
-            italy: {
-                name: "Italy",
-                description: "Venice canals, Tuscan countryside, ancient Rome, and exquisite cuisine spell pure romance.",
-                image: "https://images.unsplash.com/photo-1537225228614-b4fad34a0b60?w=400&h=300&fit=crop"
-            },
-            greece: {
-                name: "Greece",
-                description: "Whitewashed villages, turquoise Aegean seas, ancient ruins, and sunset views create postcard-perfect moments.",
-                image: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=400&h=300&fit=crop"
-            },
-            dubai: {
-                name: "Dubai",
-                description: "Ultra-luxury resorts, desert safaris, modern architecture, and 5-star experiences define Arabian opulence.",
-                image: "https://images.unsplash.com/photo-1512453475900-330447e534fa?w=400&h=300&fit=crop"
-            },
-            switzerland: {
-                name: "Switzerland",
-                description: "Alpine mountains, chocolate capital, pristine lakes, and cozy chalets offer mountain romance.",
-                image: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&h=300&fit=crop"
-            },
-            iceland: {
-                name: "Iceland",
-                description: "Northern lights, dramatic waterfalls, ice caves, and otherworldly landscapes for adventurous couples.",
-                image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=300&fit=crop"
-            },
-            peru: {
-                name: "Peru",
-                description: "Machu Picchu, Amazon rainforest, ancient culture, and diverse landscapes for the adventurous spirit.",
-                image: "https://images.unsplash.com/photo-1578762394271-fe00a0fa07dd?w=400&h=300&fit=crop"
-            },
-            japan: {
-                name: "Japan",
-                description: "Cherry blossoms, ancient temples, neon cities, and culinary excellence blend tradition with modernity.",
-                image: "https://images.unsplash.com/photo-1522383150696-c6db8542c800?w=400&h=300&fit=crop"
+            punta_cana: {
+                name: "Punta Cana, Dominican Republic",
+                description: "Stunning all-inclusive resorts with palm-lined beaches and warm Caribbean water. Amazing value with direct flights from most major US cities.",
+                image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&h=300&fit=crop"
             },
             costa_rica: {
                 name: "Costa Rica",
-                description: "Cloud forests, wildlife, volcanoes, and eco-luxury resorts create an outdoor paradise.",
+                description: "Lush cloud forests, wildlife, volcanoes, and eco-friendly lodges. Adventure and relaxation blend beautifully at a budget-friendly price.",
                 image: "https://images.unsplash.com/photo-1518776857216-90a674b32f0e?w=400&h=300&fit=crop"
             },
-            egypt: {
-                name: "Egypt",
-                description: "Pyramids, ancient temples, Nile River cruises, and timeless history make it unforgettable.",
-                image: "https://images.unsplash.com/photo-1518684077810-718a17ebc5e8?w=400&h=300&fit=crop"
+            puerto_rico: {
+                name: "Puerto Rico",
+                description: "No passport needed! Old San Juan's colorful streets, bioluminescent bays, and beautiful beaches — all with affordable direct flights.",
+                image: "https://images.unsplash.com/photo-1579687196544-08ae57ab5960?w=400&h=300&fit=crop"
             },
-            nepal: {
-                name: "Nepal",
-                description: "Himalayas, spiritual temples, adventure trekking, and warm culture create unique memories.",
-                image: "https://images.unsplash.com/photo-1544735378-fda7995e3ce5?w=400&h=300&fit=crop"
+            florida: {
+                name: "Florida (Miami & Keys)",
+                description: "From South Beach glamour to the laid-back Florida Keys — drive or take a cheap flight for a romantic beach getaway without breaking the bank.",
+                image: "https://images.unsplash.com/photo-1535498730-b4b4d3a6ad03?w=400&h=300&fit=crop"
+            },
+            california: {
+                name: "California (Disneyland & Coast)",
+                description: "Pacific Coast Highway road trips, Disneyland magic, wine country, and golden beaches. Endless options from budget-friendly to splurge-worthy.",
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
+            },
+            seattle: {
+                name: "Seattle, WA",
+                description: "Coffee culture, Pike Place Market, stunning mountain views, and a thriving food scene. A charming Pacific Northwest city honeymoon.",
+                image: "https://images.unsplash.com/photo-1502175353174-a7a70e73b4c3?w=400&h=300&fit=crop"
+            },
+            new_york: {
+                name: "New York City",
+                description: "Broadway shows, Central Park strolls, rooftop bars, and world-class dining. The ultimate city honeymoon with experiences at every price point.",
+                image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&h=300&fit=crop"
+            },
+            park_city: {
+                name: "Park City, Utah",
+                description: "Cozy mountain lodges, world-class skiing, hot springs, and stunning winter scenery. A romantic winter wonderland honeymoon on a budget.",
+                image: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=400&h=300&fit=crop"
+            },
+            caribbean_cruise: {
+                name: "Caribbean Cruise",
+                description: "Set sail from Florida to Jamaica, Cozumel, and the Bahamas. All-inclusive pricing means meals, entertainment, and multiple destinations in one trip.",
+                image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=400&h=300&fit=crop"
+            },
+            alaska_cruise: {
+                name: "Alaska Cruise",
+                description: "Glaciers, whales, and breathtaking fjords from Seattle to Juneau and Glacier Bay. A bucket-list adventure that's surprisingly affordable on a cruise.",
+                image: "https://images.unsplash.com/photo-1507041957456-9c397ce39c97?w=400&h=300&fit=crop"
+            },
+            mexico_cruise: {
+                name: "Mexican Riviera Cruise",
+                description: "Sail from LA to Cabo San Lucas, Puerto Vallarta, and Mazatlán. Sun-soaked days, vibrant ports, and incredible onboard dining — all included.",
+                image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=400&h=300&fit=crop"
+            },
+
+            // Mid-Range ($3,500 - $6,000)
+            hawaii: {
+                name: "Hawaii",
+                description: "Volcanic landscapes, pristine beaches, snorkeling, and the aloha spirit. Flights average $500–700 RT with amazing mid-range resort options.",
+                image: "https://images.unsplash.com/photo-1542259009477-d625272157b7?w=400&h=300&fit=crop"
+            },
+            cabos: {
+                name: "Los Cabos, Mexico",
+                description: "Where the desert meets the sea — luxury resorts, sport fishing, and the iconic El Arco. More upscale than Cancún with a romantic, boutique feel.",
+                image: "https://images.unsplash.com/photo-1585281360855-1bba1e6b21e0?w=400&h=300&fit=crop"
+            },
+            fiji: {
+                name: "Fiji",
+                description: "Remote Pacific island paradise with overwater bungalows, crystal-clear lagoons, and warm Fijian hospitality. Worth the longer flight for a once-in-a-lifetime experience.",
+                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop"
+            },
+            st_lucia: {
+                name: "St. Lucia",
+                description: "The dramatic Pitons, lush rainforests, volcanic hot springs, and luxury resorts make this Caribbean gem a top romantic destination.",
+                image: "https://images.unsplash.com/photo-1572726729207-a78d6feb18d7?w=400&h=300&fit=crop"
+            },
+
+            // Aspirational / Influencer ($6,000 - $10,000)
+            swiss_alps: {
+                name: "Swiss Alps (Summer)",
+                description: "Iconic alpine villages, turquoise lakes, wildflower meadows, and scenic train rides. The ultimate Instagram-worthy European summer honeymoon.",
+                image: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&h=300&fit=crop"
+            },
+            lake_como: {
+                name: "Lake Como, Italy",
+                description: "George Clooney's backyard — stunning lakeside villas, Italian cuisine, and timeless elegance. The most romantic lake in the world.",
+                image: "https://images.unsplash.com/photo-1537225228614-b4fad34a0b60?w=400&h=300&fit=crop"
+            },
+            london: {
+                name: "London, England",
+                description: "Afternoon tea, West End shows, royal palaces, and world-class shopping. A sophisticated city honeymoon with endless charm.",
+                image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400&h=300&fit=crop"
+            },
+            bora_bora: {
+                name: "Bora Bora",
+                description: "The crown jewel of French Polynesia — iconic overwater bungalows, impossibly blue lagoons, and unmatched luxury. A dream honeymoon destination.",
+                image: "https://images.unsplash.com/photo-1589197331516-4d84b72ebde3?w=400&h=300&fit=crop"
+            },
+            tahiti: {
+                name: "Tahiti",
+                description: "Black sand beaches, dramatic mountain peaks, and Polynesian culture. Less crowded than Bora Bora with equally stunning beauty and ultimate seclusion.",
+                image: "https://images.unsplash.com/photo-1516370873344-fb7c61054fa9?w=400&h=300&fit=crop"
             }
         };
 
@@ -271,9 +284,12 @@
         }
 
         function answerQuestion(answer) {
+            // Budget questions (0, 1, 2) get 2x weight
+            const multiplier = currentQuestion <= 2 ? 2 : 1;
+
             // Add points to destinations
             for (let dest in answer.points) {
-                scores[dest] += answer.points[dest];
+                scores[dest] += answer.points[dest] * multiplier;
             }
 
             currentQuestion++;
@@ -299,20 +315,29 @@
 
             const winner = destinations[winnerDest];
 
-            // Hide quiz, show results
-            document.getElementById('quiz-container').classList.add('hidden');
-            document.getElementById('result-container').classList.remove('hidden');
+            // Build destination result URL
+            const params = new URLSearchParams({
+                dest: winnerDest,
+                name: winner.name,
+                desc: winner.description
+            });
+            const resultUrl = 'destination-result.html?' + params.toString();
 
-            // Populate result
-            document.getElementById('winner-name').textContent = winner.name;
-            document.getElementById('winner-desc').textContent = winner.description;
-            document.getElementById('winner-img').src = winner.image;
+            // Replace quiz content with "Find" screen (stays in quiz container, no reveal)
+            document.getElementById('progress-fill').style.width = '100%';
+            document.getElementById('question-count').textContent = 'All done!';
+            document.getElementById('question-text').textContent = "Ready to discover your perfect retreat?";
+
+            const buttonContainer = document.getElementById('answer-buttons');
+            buttonContainer.innerHTML = '';
+            buttonContainer.style.cssText = 'display: flex; justify-content: center;';
+
+            const findBtn = document.createElement('a');
+            findBtn.href = resultUrl;
+            findBtn.className = 'cta-link';
+            findBtn.textContent = 'Find Your Retreat';
+            buttonContainer.appendChild(findBtn);
         }
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            twemoji.parse(document.body);
-        });
     </script>
 </body>
 

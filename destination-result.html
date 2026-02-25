@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Royal Retreat | Royal Blue Ventures</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Pacifico&family=Quicksand:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            color: #fff;
+        }
+
+        /* Full-screen video background */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.6) saturate(1.3);
+        }
+
+        /* Gradient overlay for readability */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.3) 0%,
+                    rgba(0, 0, 0, 0.1) 40%,
+                    rgba(0, 0, 0, 0.5) 100%);
+            z-index: 1;
+        }
+
+        /* Content container */
+        .content {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dest-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 700;
+            opacity: 0.85;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .dest-name {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .dest-desc {
+            max-width: 700px;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 1s 0.4s ease forwards;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 1s 0.7s ease forwards;
+        }
+
+        .glass-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.05rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .glass-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-btn.primary {
+            background: rgba(32, 78, 207, 0.6);
+            border-color: rgba(133, 165, 242, 0.4);
+        }
+
+        .glass-btn.primary:hover {
+            background: rgba(32, 78, 207, 0.8);
+        }
+
+        /* Back nav */
+        .back-nav {
+            position: fixed;
+            top: 30px;
+            left: 40px;
+            z-index: 10;
+        }
+
+        .back-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .back-nav a:hover {
+            opacity: 1;
+        }
+
+        /* No video fallback */
+        .no-video-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(135deg, #1a3caf 0%, #204ecf 50%, #85a5f2 100%);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            .dest-name {
+                font-size: clamp(2rem, 10vw, 3.5rem);
+            }
+
+            .dest-desc {
+                font-size: 1rem;
+            }
+
+            .glass-btn {
+                padding: 14px 30px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back-nav">
+        <a href="honeymoonfinder.html">← Back to Quiz</a>
+    </div>
+
+    <!-- Video/Image background (set dynamically) -->
+    <video id="bg-video" class="video-bg" autoplay loop muted playsinline></video>
+    <img id="bg-img" class="video-bg" style="display:none;">
+    <div id="no-video-fallback" class="no-video-bg" style="display:none;"></div>
+    <div class="overlay"></div>
+
+    <div class="content">
+        <p class="dest-label">Your Royal Retreat</p>
+        <h1 id="dest-name" class="dest-name">Loading...</h1>
+        <p id="dest-desc" class="dest-desc"></p>
+        <div class="btn-row">
+            <a id="estimate-link" href="markettrends.html" class="glass-btn primary">Get a Price Estimate →</a>
+            <a href="honeymoonfinder.html" class="glass-btn">Retake Quiz</a>
+            <a href="index.html" class="glass-btn">Back to Hub</a>
+        </div>
+    </div>
+
+    <script>
+        // Read destination from URL params
+        const params = new URLSearchParams(window.location.search);
+        const destKey = params.get('dest');
+        const destName = params.get('name') || 'Your Destination';
+        const destDesc = params.get('desc') || '';
+
+        // Video/Image mapping for destinations
+        const mediaMap = {
+            cancun: 'Video Cancun.mp4',
+            punta_cana: 'Video Punta Cana.mp4',
+            costa_rica: 'Video Costa Rica.mp4',
+            puerto_rico: 'Video Puerto Rico.mp4',
+            florida: 'Video Florida.mp4',
+            california: 'Video Disneyland.jpg',
+            seattle: 'Video Seattle.mp4',
+            new_york: 'Video New York.mp4',
+            caribbean_cruise: 'Video for Cruises.mp4',
+            alaska_cruise: 'Video for Cruises.mp4',
+            mexico_cruise: 'Video for Cruises.mp4',
+            hawaii: 'Hawaii video.mp4',
+            cabos: 'Cabo video.mp4',
+            fiji: 'Video Fiji.mp4',
+            swiss_alps: 'Video Switzerland.mp4',
+            lake_como: 'Video lake como.mp4',
+            london: 'Video London.mp4',
+            bora_bora: 'Video Bora bora.mp4',
+            tahiti: 'Video Tahiti.mp4'
+        };
+
+        // Set destination info
+        document.getElementById('dest-name').textContent = destName;
+        document.getElementById('dest-desc').textContent = destDesc;
+        document.title = `${destName} | Royal Blue Ventures`;
+
+        // Set price estimator link to pass destination
+        if (destKey) {
+            document.getElementById('estimate-link').href = 'markettrends.html?dest=' + encodeURIComponent(destKey);
+        }
+
+        // Set background media
+        const video = document.getElementById('bg-video');
+        const img = document.getElementById('bg-img');
+        const fallback = document.getElementById('no-video-fallback');
+        const media = mediaMap[destKey];
+
+        if (destKey && media) {
+            fallback.style.display = 'none';
+            if (media.toLowerCase().endsWith('.mp4')) {
+                video.src = media;
+                video.style.display = 'block';
+                img.style.display = 'none';
+            } else {
+                img.src = media;
+                img.style.display = 'block';
+                video.style.display = 'none';
+            }
+        } else {
+            // No media available — use gradient fallback
+            video.style.display = 'none';
+            img.style.display = 'none';
+            fallback.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
