@@ -211,7 +211,7 @@
         <h1 id="dest-name" class="dest-name">Loading...</h1>
         <p id="dest-desc" class="dest-desc"></p>
         <div class="btn-row">
-            <a id="estimate-link" href="markettrends.html" class="glass-btn primary">Get a Price Estimate →</a>
+            <a id="continue-link" href="describe-trip.html" class="glass-btn primary">Continue Planning →</a>
             <a href="honeymoonfinder.html" class="glass-btn">Retake Quiz</a>
             <a href="index.html" class="glass-btn">Back to Hub</a>
         </div>
@@ -252,9 +252,15 @@
         document.getElementById('dest-desc').textContent = destDesc;
         document.title = `${destName} | Royal Blue Ventures`;
 
-        // Set price estimator link to pass destination
+        // Set "Continue Planning" link to pass destination + budget to describe-trip form
+        const budget = params.get('budget') || '';
         if (destKey) {
-            document.getElementById('estimate-link').href = 'markettrends.html?dest=' + encodeURIComponent(destKey);
+            const formParams = new URLSearchParams({
+                dest: destKey,
+                name: destName,
+                budget: budget
+            });
+            document.getElementById('continue-link').href = 'describe-trip.html?' + formParams.toString();
         }
 
         // Set background media

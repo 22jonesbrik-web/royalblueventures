@@ -236,8 +236,43 @@
     </footer>
 
     <script>
-        // Set the hidden next field to the current URL so it redirects back here upon submission
-        document.querySelector('input[name="_next"]').value = window.location.href;
+        // Set the hidden next field to the current URL (without params, so re-submission doesn't loop)
+        const baseUrl = window.location.origin + window.location.pathname;
+        document.querySelector('input[name="_next"]').value = baseUrl;
+
+        // Pre-fill form from URL params (when coming from destination-result page)
+        (function prefillFromParams() {
+            const params = new URLSearchParams(window.location.search);
+            const destName = params.get('name');
+            const budget = params.get('budget');
+
+            // Pre-fill location
+            if (destName) {
+                const locationInput = document.getElementById('location');
+                locationInput.value = destName;
+                locationInput.style.backgroundColor = '#eef3ff';
+                locationInput.style.fontWeight = '600';
+            }
+
+            // Pre-fill budget dropdown by mapping quiz answer to dropdown value
+            if (budget) {
+                const budgetMap = {
+                    'Under $2,500': '1500-3000',
+                    '$2,500 – $5,000': '3000-5000',
+                    '$5,000 – $8,000': '5000-10000',
+                    '$8,000 – $10,000': '10000+'
+                };
+                const budgetValue = budgetMap[budget];
+                if (budgetValue) {
+                    document.getElementById('budget').value = budgetValue;
+                }
+            }
+
+            // Pre-select trip type as Honeymoon since they came from the honeymoon finder
+            if (destName || budget) {
+                document.getElementById('trip-type').value = 'honeymoon';
+            }
+        })();
 
         document.addEventListener("DOMContentLoaded", function () {
             twemoji.parse(document.body);

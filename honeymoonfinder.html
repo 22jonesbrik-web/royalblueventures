@@ -349,11 +349,15 @@
 
             const winner = destinations[winnerDest];
 
+            // Get the budget answer from the first question (index 0)
+            const budgetAnswer = history.length > 0 ? history[0].answer.text : '';
+
             // Build destination result URL
             const params = new URLSearchParams({
                 dest: winnerDest,
                 name: winner.name,
-                desc: winner.description
+                desc: winner.description,
+                budget: budgetAnswer
             });
             const resultUrl = 'destination-result.html?' + params.toString();
 
