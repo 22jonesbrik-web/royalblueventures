@@ -268,10 +268,7 @@
                 }
             }
 
-            // Pre-select trip type as Honeymoon since they came from the honeymoon finder
-            if (destName || budget) {
-                document.getElementById('trip-type').value = 'honeymoon';
-            }
+            // Don't pre-select trip type — let the user choose since the quiz is general travel
         })();
 
         document.addEventListener("DOMContentLoaded", function () {
