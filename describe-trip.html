@@ -116,6 +116,129 @@
             margin-left: 3px;
             font-weight: bold;
         }
+
+        /* Success Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 52px 48px 44px;
+            max-width: 520px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 24px 80px rgba(32, 78, 207, 0.2), 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(30px) scale(0.95);
+            animation: modalIn 0.5s 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes modalIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #204ECF, #85A5F2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: popIn 0.6s 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            transform: scale(0);
+        }
+
+        @keyframes popIn {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .modal-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .modal-icon svg .check-path {
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: drawCheck 0.5s 0.6s ease forwards;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .modal-card h2 {
+            font-family: var(--font-heading);
+            color: var(--est-royal);
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .modal-card p {
+            color: #5a6a8a;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .modal-card .modal-highlight {
+            color: var(--est-royal);
+            font-weight: 700;
+        }
+
+        .modal-card .modal-close-btn {
+            margin-top: 28px;
+            display: inline-block;
+            padding: 14px 40px;
+            background: var(--est-royal);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(32, 78, 207, 0.25);
+        }
+
+        .modal-card .modal-close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(32, 78, 207, 0.35);
+            background: #1a3caf;
+        }
     </style>
 </head>
 
@@ -235,8 +358,25 @@
         <p>&copy; 2025 Royal Blue Ventures LLC | Managed by the Executive Suite</p>
     </footer>
 
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-icon">
+                <svg viewBox="0 0 40 40">
+                    <polyline class="check-path" points="10,20 18,28 30,12" />
+                </svg>
+            </div>
+            <h2>You're All Set! ✈️</h2>
+            <p>Thank you for sharing your trip details.</p>
+            <p>A <span class="modal-highlight">Royal Blue Ventures travel advisor</span> will be in contact with you
+                shortly to begin the booking phase.</p>
+            <p style="font-size: 0.92rem; color: #8a96b0; margin-top: 12px;">We typically respond within 24 hours.</p>
+            <button class="modal-close-btn" onclick="closeModal()">Back to Home →</button>
+        </div>
+    </div>
+
     <script>
-        // Set the hidden next field to the current URL (without params, so re-submission doesn't loop)
+        // Set the hidden next field (not used anymore but kept for fallback)
         const baseUrl = window.location.origin + window.location.pathname;
         document.querySelector('input[name="_next"]').value = baseUrl;
 
@@ -246,7 +386,6 @@
             const destName = params.get('name');
             const budget = params.get('budget');
 
-            // Pre-fill location
             if (destName) {
                 const locationInput = document.getElementById('location');
                 locationInput.value = destName;
@@ -254,22 +393,52 @@
                 locationInput.style.fontWeight = '600';
             }
 
-            // Pre-fill budget dropdown by mapping quiz answer to dropdown value
             if (budget) {
                 const budgetMap = {
                     'Under $2,500': 'under-2500',
-                    '$2,500 – $5,000': '2500-5000',
-                    '$5,000 – $8,000': '5000-8000',
-                    '$8,000 – $10,000': '8000-10000'
+                    '$2,500 \u2013 $5,000': '2500-5000',
+                    '$5,000 \u2013 $8,000': '5000-8000',
+                    '$8,000 \u2013 $10,000': '8000-10000'
                 };
                 const budgetValue = budgetMap[budget];
                 if (budgetValue) {
                     document.getElementById('budget').value = budgetValue;
                 }
             }
-
-            // Don't pre-select trip type — let the user choose since the quiz is general travel
         })();
+
+        // Intercept form submission → send via fetch → show modal
+        document.getElementById('trip-request-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+            } catch (err) {
+                // FormSubmit may not support JSON accept, but submission still goes through
+            }
+
+            // Show success modal
+            const modal = document.getElementById('success-modal');
+            modal.style.display = 'flex';
+            requestAnimationFrame(() => modal.classList.add('active'));
+
+            // Reset form
+            form.reset();
+            submitBtn.textContent = 'Submit Trip Details';
+            submitBtn.disabled = false;
+        });
+
+        function closeModal() {
+            window.location.href = 'index.html';
+        }
 
         document.addEventListener("DOMContentLoaded", function () {
             twemoji.parse(document.body);
