@@ -227,16 +227,31 @@ img {
 }
 
 /* ---------------------------------------------------
+   Hero Buttons Wrapper & Secondary Button
+   --------------------------------------------------- */
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 35px;
+    flex-wrap: wrap;
+}
+
+.hero-buttons .cta-button {
+    margin-top: 0;
+}
+
+/* ---------------------------------------------------
    CTA Button – Bubbly Popped Button
    --------------------------------------------------- */
 .cta-button {
     display: inline-block;
     margin-top: 35px;
     padding: 18px 48px;
-    background: rgba(32, 78, 207, 0.6);
+    background: rgba(26, 60, 175, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    color: var(--surface);
+    color: #ffffff;
     text-decoration: none;
     border-radius: var(--radius-pill);
     font-weight: 800;
@@ -256,13 +271,22 @@ img {
 .cta-button:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    background: rgba(32, 78, 207, 0.85);
+    background: rgba(18, 45, 130, 0.95);
     color: #fff;
 }
 
 .cta-button:active {
     transform: translateY(-2px);
     box-shadow: var(--shadow-glass);
+}
+
+.cta-button.secondary-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cta-button.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 /* ---------------------------------------------------
@@ -564,6 +588,15 @@ footer {
     .hero-content h1 {
         font-size: clamp(2rem, 8vw, 3rem);
         text-align: center;
+    }
+
+    .hero-buttons {
+        margin-top: 2rem;
+        gap: 15px;
+    }
+
+    .hero-buttons .cta-button {
+        margin-top: 0;
     }
 
     .cta-button {
