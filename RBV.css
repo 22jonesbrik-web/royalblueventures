@@ -248,7 +248,7 @@ img {
     display: inline-block;
     margin-top: 35px;
     padding: 18px 48px;
-    background: rgba(26, 60, 175, 0.85);
+    background: var(--primary);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     color: #ffffff;
@@ -259,7 +259,7 @@ img {
     letter-spacing: 1px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
@@ -271,8 +271,8 @@ img {
 .cta-button:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    background: rgba(18, 45, 130, 0.95);
-    color: #fff;
+    background: var(--primary-dark);
+    color: #ffffff;
 }
 
 .cta-button:active {
@@ -281,12 +281,12 @@ img {
 }
 
 .cta-button.secondary-btn {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: var(--primary);
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .cta-button.secondary-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--primary-dark);
 }
 
 /* ---------------------------------------------------
