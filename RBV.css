@@ -532,12 +532,11 @@ footer {
         max-width: 95%;
     }
 
-    /* Hero image height auto for tablets */
+    /* Hero stays full-screen on tablets */
     .hero-header {
-        height: auto;
-        min-height: 70vh;
-        padding: 8rem 0 4rem 0;
-        /* Add top padding to account for nav */
+        height: 100vh;
+        min-height: 100vh;
+        padding: 0;
     }
 
     .hero-content h1 {
@@ -581,8 +580,9 @@ footer {
     }
 
     .hero-header {
-        height: auto;
-        padding: 8rem 1rem 4rem 1rem;
+        height: 100vh;
+        min-height: 100vh;
+        padding: 0;
     }
 
     .hero-content h1 {
