@@ -269,6 +269,11 @@
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_next" value="">
 
+                <!-- Quiz data (populated via JS if user came from the quiz) -->
+                <input type="hidden" id="from-quiz" name="Came From Quiz" value="No">
+                <input type="hidden" id="quiz-nights" name="Preferred Trip Length" value="">
+                <input type="hidden" id="quiz-spending" name="Spending Style" value="">
+
                 <h2 class="section-title">Contact Information</h2>
 
                 <div class="input-group">
@@ -385,7 +390,24 @@
             const params = new URLSearchParams(window.location.search);
             const destName = params.get('name');
             const budget = params.get('budget');
+            const nights = params.get('nights');
+            const spending = params.get('spending');
+            const fromQuiz = params.get('from_quiz');
 
+            // Set quiz indicator
+            if (fromQuiz === 'yes') {
+                document.getElementById('from-quiz').value = 'Yes';
+            }
+
+            // Set quiz answers as hidden fields
+            if (nights) {
+                document.getElementById('quiz-nights').value = nights;
+            }
+            if (spending) {
+                document.getElementById('quiz-spending').value = spending;
+            }
+
+            // Pre-fill location
             if (destName) {
                 const locationInput = document.getElementById('location');
                 locationInput.value = destName;
@@ -393,6 +415,7 @@
                 locationInput.style.fontWeight = '600';
             }
 
+            // Pre-fill budget dropdown
             if (budget) {
                 const budgetMap = {
                     'Under $2,500': 'under-2500',
