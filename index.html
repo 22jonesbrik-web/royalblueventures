@@ -21,28 +21,36 @@
             vertical-align: -0.1em;
         }
 
-        .logo img {
-            height: 42px;
-            width: auto;
-            display: block;
+        /* Minimal top nav override */
+        .glass-nav {
+            padding: 8px 28px;
+            justify-content: flex-end;
+        }
+
+        /* Footer with logo */
+        footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 32px 20px 24px;
+        }
+
+        footer img.footer-logo {
+            height: 52px;
             border-radius: 50%;
-            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 2px 8px rgba(32, 78, 207, 0.2));
             transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        .logo:hover img {
+        footer img.footer-logo:hover {
             transform: scale(1.08);
         }
 
-        .nav-divider {
-            width: 1px;
-            height: 28px;
-            background: rgba(255, 255, 255, 0.3);
-            margin: 0 8px;
-        }
-
-        .glass-nav {
-            padding: 10px 28px;
+        footer .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.15);
         }
     </style>
 </head>
@@ -50,8 +58,6 @@
 <body>
     <div id="main-nav-container">
         <nav class="glass-nav">
-            <a href="index.html" class="logo"><img src="rbv-logo.png" alt="Royal Blue Ventures Logo"></a>
-            <div class="nav-divider"></div>
             <div class="nav-links">
                 <a href="aboutme.html">About Me</a>
             </div>
@@ -74,6 +80,8 @@
     </header>
 
     <footer>
+        <img src="rbv-logo.png" alt="Royal Blue Ventures" class="footer-logo">
+        <div class="footer-divider"></div>
         <p>&copy; 2025 Royal Blue Ventures LLC | Managed by the Executive Suite</p>
     </footer>
 
