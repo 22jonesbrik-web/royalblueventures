@@ -252,19 +252,18 @@
         document.getElementById('dest-desc').textContent = destDesc;
         document.title = `${destName} | Royal Blue Ventures`;
 
-        // Set "Continue Planning" link to pass destination + quiz data to describe-trip form
-        const budget = params.get('budget') || '';
-        const nights = params.get('nights') || '';
-        const spending = params.get('spending') || '';
+        // Set "Continue Planning" link to pass destination + all quiz data to describe-trip form
         if (destKey) {
             const formParams = new URLSearchParams({
                 dest: destKey,
                 name: destName,
-                budget: budget,
-                nights: nights,
-                spending: spending,
                 from_quiz: 'yes'
             });
+            // Forward all quiz answer params (q0, q1, q2, ... q9)
+            for (let i = 0; i <= 9; i++) {
+                const val = params.get('q' + i);
+                if (val) formParams.set('q' + i, val);
+            }
             document.getElementById('continue-link').href = 'describe-trip.html?' + formParams.toString();
         }
 

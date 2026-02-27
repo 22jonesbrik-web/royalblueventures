@@ -349,19 +349,18 @@
 
             const winner = destinations[winnerDest];
 
-            // Get quiz answers to pass forward
-            const budgetAnswer = history.length > 0 ? history[0].answer.text : '';
-            const nightsAnswer = history.length > 1 ? history[1].answer.text : '';
-            const spendingAnswer = history.length > 2 ? history[2].answer.text : '';
+            // Collect all quiz answers to pass forward
+            const quizAnswers = {};
+            for (let i = 0; i < history.length; i++) {
+                quizAnswers['q' + i] = history[i].answer.text;
+            }
 
             // Build destination result URL
             const params = new URLSearchParams({
                 dest: winnerDest,
                 name: winner.name,
                 desc: winner.description,
-                budget: budgetAnswer,
-                nights: nightsAnswer,
-                spending: spendingAnswer
+                ...quizAnswers
             });
             const resultUrl = 'destination-result.html?' + params.toString();
 
